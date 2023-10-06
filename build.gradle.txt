@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-codec:1.15'
+}
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+tasks.register('encodeBase64') {
+    doLast {
+        def input = 'Hello, World!'
+        def encoded = org.apache.commons.codec.binary.Base64.encodeBase64String(input.bytes)
+        println "Encoded: ${encoded}"
+    }
+}
+
+tasks.register('decodeBase64') {
+    doLast {
+        def encoded = 'SGVsbG8sIFdvcmxkIQ=='
+        def decoded = new String(org.apache.commons.codec.binary.Base64.decodeBase64(encoded))
+        println "Decoded: ${decoded}"
+    }
+}
